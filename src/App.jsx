@@ -53,36 +53,37 @@ const App = () => {
   )
 */
 
-const[click, setClicks] = useState({
+const [clicks, setClicks] = useState({
   left: 0, right: 0
 })
 
 const handleLeftClick = () => {
-  const newClicks = {
-    left: setClicks.left +1,
-    right: setClicks.right
+  const newClicks = { 
+    ...clicks, 
+    left: clicks.left + 1 
   }
   setClicks(newClicks)
 }
 
-
-
-  return (
-    <div>
-      <div>
-        {left}
-        <button onClick={() => setLeft(left + 1)}>
-          left
-        </button>
-        <button onClick={() => setRight(right + 1)}>
-          right
-        </button>
-        {right}
-      </div>
-    </div>
-  )
+const handleRightClick = () => {
+  const newClicks = { 
+    ...clicks, 
+    right: clicks.right + 1 
+  }
+  setClicks(newClicks)
 }
 
+return (
+  <div>
+    <div>
+      {clicks.left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {clicks.right}
+    </div>
+  </div>
+)
+}
   
 
 export default App
