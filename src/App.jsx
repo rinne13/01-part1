@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import History from './History'
 
 const Display = ({ counter }) => <div>{counter}</div>
 
@@ -53,33 +54,39 @@ const App = () => {
   )
 */
 
-const [clicks, setClicks] = useState({
-  left: 0, right: 0
-})
+const [left, setLeft] = useState(0)
+const [right, setRight] = useState(0)
+const [allClicks, setAll] = useState([])
+const [total, setTotal] = useState(0)
 
 const handleLeftClick = () => {
-  const newClicks = { 
-    ...clicks, 
-    left: clicks.left + 1 
-  }
-  setClicks(newClicks)
+  setAll(allClicks.concat('L'))
+  console.log('left before', left)
+  const updatedLeft = left + 1
+  setLeft(updatedLeft)
+  console.log('left after', left)
+  setTotal(updatedLeft + right)
 }
 
 const handleRightClick = () => {
-  const newClicks = { 
-    ...clicks, 
-    right: clicks.right + 1 
-  }
-  setClicks(newClicks)
+  setAll(allClicks.concat('R'))
+  console.log('right before', right)
+  const updatedRight = right + 1
+  setRight(updatedRight)
+  console.log('right after', right)
+  setTotal(updatedRight + left)
+
 }
 
 return (
   <div>
     <div>
-      {clicks.left}
+      {left}
       <button onClick={handleLeftClick}>left</button>
       <button onClick={handleRightClick}>right</button>
-      {clicks.right}
+      {right}
+      <History allClicks={allClicks}/>
+      <p>total {total}</p>
     </div>
   </div>
 )
